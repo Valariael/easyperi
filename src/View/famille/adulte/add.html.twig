@@ -1,0 +1,91 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+    {% if idEnfant is defined %}
+    <form method="post" action="{{ path("adulte.validFormAdd", {idEnfant: idEnfant})}} ">
+        {% else %}
+            <form method="post" action="{{ path("adulte.validFormAdd")}} ">
+            {% endif %}
+        <div class="row">
+            <fieldset>
+                {#for parent *nParents#}
+                <legend>Ajouter un parent :</legend>
+
+                <label>Nom :
+                    <input name="nom"  type="text"  size="18" value="{{ donnees.nom|default("") }}" />
+                    {% if erreurs.nom is defined %}
+                        <small class="error">{{ erreurs.nom }}</small>
+                    {% endif %}
+                </label>
+
+                <label>Prénom :
+                    <input name="prenom"  type="text"  size="18" value="{{donnees.prenom|default("")}}"/>
+                    {% if erreurs.prenom is defined %}
+                        <small class="error">{{erreurs.prenom}}</small>
+                    {% endif %}
+                </label>
+                {#
+                                <label>Autorité parentale :
+                                    <select name="autoriteParentale">
+                                        {% if  donnees.autoriteParentale is not defined or donnees.autoriteParentale is empty   %}
+                                            <option value="">Veuillez sélectionner une option</option>
+                                        {% endif %}
+                                        <option value="true"> Oui </option>
+                                        <option value="false"> Non </option>
+                                    </select>
+                                    {% if erreurs.autoriteParentale is defined %}
+                                        <small class="error">{{ erreurs.autoriteParentale }}</small>
+                                    {% endif %}<!--à modifier-->
+                                </label>
+                                #}
+
+                <label>    Adresse : </label>
+
+                <label>N° et voie :
+                    <input name="adresse"  type="text"  size="18" value="{{donnees.adresse|default("")}}"/>
+                    {% if erreurs.adresse is defined %}
+                        <small class="error">{{erreurs.adresse}}</small>
+                    {% endif %}
+                </label>
+
+                <label>Code postal :
+                    <input name="codePostal"  type="text"  size="18" value="{{donnees.codePostal|default("")}}"/>
+                    {% if erreurs.codePostal is defined %}
+                        <small class="error">{{erreurs.codePostal}}</small>
+                    {% endif %}
+                </label>
+
+                <label>Ville :
+                    <input name="nomVille"  type="text"  size="18" value="{{donnees.nomVille|default("")}}"/>
+                    {% if erreurs.nomVille is defined %}
+                        <small class="error">{{erreurs.nomVille}}</small>
+                    {% endif %}
+                </label>
+
+                <label>    Contact : </label>
+
+                <label>Adresse email :
+                    <input name="adresseMail"  type="text"  size="18" value="{{donnees.adresseMail|default("")}}"/>
+                    {% if erreurs.adresseMail is defined %}
+                        <small class="error">{{erreurs.adresseMail}}</small>
+                    {% endif %}
+                </label>
+
+                <label>N° de téléphone :
+                    <input name="telephone"  type="text"  size="18" value="{{donnees.telephone|default("")}}"/>
+                    {% if erreurs.telephone is defined %}
+                        <small class="error">{{erreurs.telephone}}</small>
+                    {% endif %}
+                </label>
+
+                <label>Mot de passe :
+                    <input name="password"  type="password"  size="18" value="{{donnees.password|default("")}}"/>
+                    {% if erreurs.password is defined %}
+                        <small class="error">{{erreurs.password}}</small>
+                    {% endif %}
+                </label>
+
+                <input type="submit" name="addParents" value="creerParents" />
+            </fieldset>
+        </div>
+    </form>
+{% endblock %}

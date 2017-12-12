@@ -1,0 +1,45 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+    <form method="post" action="{{ path("enfant.validFormAdd",{idParent: idParent}) }} ">
+        <div class="row">
+            <fieldset>
+                <legend>Ajouter un enfant : </legend>
+
+                <label>Nom :
+                    <input name="nomEnfant"  type="text"  size="18" value="{{ donnees.nomEnfant|default("") }}" />
+                    {% if erreurs.nomEnfant is defined %}
+                        <small class="error">{{ erreurs.nomEnfant }}</small>
+                    {% endif %}
+                </label>
+                <label>Prénom :
+                    <input name="prenomEnfant"  type="text"  size="18" value="{{ donnees.prenomEnfant|default("") }}" />
+                    {% if erreurs.prenomEnfant is defined %}
+                        <small class="error">{{ erreurs.prenomEnfant }}</small>
+                    {% endif %}
+                </label>
+
+                <label>Date de naissance :
+                    <input name="dateDeNaissance"  type="text"  size="18" value="{{donnees.dateDeNaissance|default("")}}" placeholder="jj-mm-aaaa"/>
+                    {% if erreurs.dateDeNaissance is defined %}
+                        <small class="error">{{erreurs.dateDeNaissance}}</small>
+                    {% endif %}
+                </label>
+
+                <label>Classe :
+                    <input name="nomClasse"  type="text"  size="18" value="{{donnees.nomClasse|default("")}}"/>
+                    {% if erreurs.nomClasse is defined %}
+                        <small class="error">{{erreurs.nomClasse}}</small>
+                    {% endif %}
+                </label>
+                <label>Niveau :
+                    <input name="nomNiveau"  type="text"  size="18" value="{{donnees.nomNiveau|default("")}}"/>
+                    {% if erreurs.nomNiveau is defined %}
+                        <small class="error">{{erreurs.nomNiveau}}</small>
+                    {% endif %}
+                </label>
+
+                <input type="submit" name="addEnfants" value="créer" >
+            </fieldset>
+        </div>
+    </form>
+{% endblock %}

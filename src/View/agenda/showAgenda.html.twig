@@ -1,0 +1,34 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+    <tr class="row" style="margin-top: 30px;">
+            S'inscrire aux activités
+            <table>
+                <caption></caption>
+
+                <thead>
+                <tr>
+                    <th>Jour<th>
+                    {% for agenda in agenda if agenda is not empty %}
+                        <td>{{ agenda.dateActivite }}</td>
+                    {% endfor %}
+                </tr>
+
+
+
+
+
+                </thead>
+                <tbody>
+                <td>Heure</td>
+                {% for agenda in agenda if agenda is not empty %}
+                <td >{{ agenda.heureDebut }}-{{ agenda.heureFin }}h<input type="checkbox" value="{{ agenda.idAgenda }}" name="idAgenda"></td>
+                <tr>
+
+
+                </tbody>
+            </table>
+        <a href="{{ path('agenda.ajouterInscription', {id: enfants.idEnfant})}}"> Inscrire l'enfant </a>
+        {% endfor %}
+    </div>
+{% endblock %}
+

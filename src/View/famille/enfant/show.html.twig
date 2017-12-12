@@ -1,0 +1,48 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+    <div class="row" style="margin-top: 30px;">
+        {% if   app.session.get('roles') is defined and  app.session.get('roles') == 'ROLE_USER' %}
+            <a href="{{ path('enfant.add', {idParent:app.session.get('username')}) }}"> Ajouter un enfant </a>
+        {% endif %}
+
+        <table>
+            <caption>Recapitulatifs des enfants inscrits</caption>
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Date de naissance</th>
+                <th>classe</th>
+                <th>niveau</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if   app.session.get('roles') is defined and  app.session.get('roles') == 'ROLE_USER' or app.session.get('roles') == 'ROLE_ADMIN' %}
+                {% for key in enfants if enfants is not empty %}
+                    <tr>
+                        <td>{{ key.nomEnfant }}</td>
+                        <td>{{ key.prenomEnfant }}</td>
+                        <td>{{ key.dateDeNaissance|date("d-m-Y") }}</td>
+                        <td>{{ key.nomClasse }}</td>
+                        <td>{{ key.nomNiveau }}</td>
+
+                    {% if app.session.get('roles') =='ROLE_USER' %}
+                    <td>
+                        <a href="{{ path('agenda.showAgenda', {id: key.idEnfant})}}"> Vous êtes un parent ? </a>
+                    </td>
+                    {% endif %}
+                    {% if   app.session.get('roles') is defined and  app.session.get('roles') == 'ROLE_ADMIN' %}
+                        <td>
+
+                            <a href="{{ path('enfant.editEnfant', {id: key.idEnfant}) }}">modifier</a>
+                            <a href="{{ path('admin.deleteEnfant', {id: key.idEnfant}) }}">supprimer</a>
+                        </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            {% endif %}
+            <tbody>
+        </table>
+    </div>
+{% endblock %}
+

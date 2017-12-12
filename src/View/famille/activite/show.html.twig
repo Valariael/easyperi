@@ -1,0 +1,28 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+    <div class="row" style="margin-top: 30px;">
+
+        <table>
+            <caption>Activités proposées</caption>
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Theme</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if   app.session.get('roles') is defined and  app.session.get('roles') == 'ROLE_USER' or app.session.get('roles') == 'ROLE_ADMIN' %}
+                {% for activite in activite if activite is not empty %}
+                    <tr>
+                        <td>{{ activite.nomActivite }}</td>
+                        <td>{{ activite.descriptionActivite }}</td>
+                            <td>{{ activite.idTheme }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+            <tbody>
+        </table>
+    </div>
+{% endblock %}
+

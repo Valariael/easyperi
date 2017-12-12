@@ -1,0 +1,45 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+    <div class="row" style="margin-top: 30px;">
+        {% if   app.session.get('roles') is defined and  app.session.get('roles') == 'ROLE_ADMIN' %}
+            <a href="{{ path('adulte.add') }}"> Ajouter un adulte </a>
+        <table>
+            <caption>Recapitulatifs des adultes inscrits</caption>
+            <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Nom d'utilisateur</th>
+                <th>Ville</th>
+                <th>Mot de passe</th>
+                <th>Adresse Mail</th>
+                <th>Rang</th>
+                <th>Téléphone</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for adulte in adultes if adultes is not empty %}
+                <tr>
+                    <td>{{ adulte.nom }}</td>
+                    <td>{{ adulte.prenom }}</td>
+                    <td>{{ adulte.username }}</td>
+                    <td>{{ adulte.nomVille }}</td>
+                    <td>{{ adulte.password }}</td>
+                    <td>{{ adulte.adresseMail }}</td>
+                    <td>{{ adulte.rang }}</td>
+                    <td>{{ adulte.telephone }}</td>
+
+                        <td>
+                            {#
+                            <a href="{{ path('admin.edit', {id: adulte.idAdulte}) }}">modifier</a>
+                            #}
+                            <a href="{{ path('admin.delete', {id: adulte.idAdulte}) }}">supprimer</a>
+                        </td>
+                </tr>
+            {% endfor %}
+            <tbody>
+        </table>
+        {% endif %}
+    </div>
+{% endblock %}
+

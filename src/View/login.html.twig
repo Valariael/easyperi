@@ -1,0 +1,25 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+    <fieldset id="login-form">
+        <legend>Portail</legend>
+        <div>
+            <form method="post" action="{{ path('adulte.validFormlogin') }}">
+                <label>Nom d'utilisateur :
+                    <input name="login"  type="text"  size="18" value="" placeholder="Votre nom d'utilisateur"/>
+                </label>
+                <label>Mot de passe :
+                    <input name="password"  type="password"  size="18" value="" placeholder="Votre mot de passe"/>
+                </label>
+                {% if app.session.get('erreur') is not empty %}
+                    <small class="error">{{ app.session.get('erreur') }}</small>
+                {% endif %}
+                <button class="button primary" id="seconnecterbutton" type="submit" name="seConnecter"><span class="button-arrow-right">Se connecter</span></button>
+            </form>
+            <form action="{{ path('adulte.add')}}">
+                <button id="sinscrirebutton" class="button primary" name="sInscrire"><span class="button-arrow-left">S'inscrire</span></button>
+            </form>
+        </div>
+
+    </fieldset>
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+    <form method="post" action="{{ path("enfant.validFormUpdate", {id: donnees.idEnfant}) }} ">
+        <div class="row">
+            <fieldset>
+                <legend>Modifier un enfant</legend>
+                <input name="idEnfant"  type="hidden" value="{{donnees.idEnfant}}" />
+                <input type="hidden" id="_method" name="_method" value="PUT"/>
+                <label>Nom :
+                    <input name="nomEnfant"  type="text"  size="18" value="{{donnees.nomEnfant}}" />
+                    {% if erreurs.nomEnfant is defined %}
+                        <small class="error">{{erreurs.nomEnfant}}</small>
+                    {% endif %}
+                </label>
+                <label>Prenom :
+                    <input name="prenomEnfant"  type="text"  size="18" value="{{donnees.prenomEnfant}}" />
+                    {% if erreurs.prenomEnfant is defined %}
+                        <small class="error">{{erreurs.prenomEnfant}}</small>
+                    {% endif %}
+                </label>
+                <label>Date de naissance
+                    <input name="dateDeNaissance"  type="text"  size="18" value="{{ donnees.dateDeNaissance }}"/>
+                    {% if erreurs.dateDeNaissance is defined %}
+                        <small class="error">{{erreurs.dateDeNaissance}}</small>
+                    {% endif %}
+                </label>
+                <label>Classe
+                    <input name="nomClasse"  type="text"  size="18" 	value="{{donnees.nomClasse}}"/>
+                    {% if erreurs.idClasse is defined %}
+                        <small class="error">{{erreurs.nomClasse}}</small>
+                    {% endif %}
+                </label>
+                <input type="submit" name="edit" value="Modifier" />
+            </fieldset>
+        </div>
+    </form>
+{% endblock %}

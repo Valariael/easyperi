@@ -1,0 +1,15 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+    <form method="post" action="{{ path("admin.destroyEnfant", {id: enfant['idEnfant']}) }} ">
+        <input type="hidden" id="_method" name="_method" value="DELETE"/>
+        <div class="row">
+            <fieldset>
+                <legend>Suppression</legend>
+                <h3>Etes vous sur de vouloir supprimer cet enfant ? {{ enfant.nomEnfant }}{{ enfant.prenomEnfant }}</h3>
+                <input type="submit" name="supprimer" value="Supprimer" class="button"/>
+                <a href="{{ path('enfant.show') }}" class="button">Annuler</a>
+            </fieldset>
+        </div>
+    </form>
+
+{% endblock %}

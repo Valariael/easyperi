@@ -1,0 +1,30 @@
+{% include "layout.html.twig" %}
+{% block contenu %}
+    <form method="post" action="{{ path("famille.validFormAdd") }} ">
+        <div class="row">
+            <fieldset>
+                <legend>Ajouter une famille : </legend>
+
+                <label>Nombre de parents :
+                    <input name="nParent"  type="text"  size="18" value="{{donnees.nParent|default("")}}"/>
+                    {% if erreurs.nParent is defined %}
+                        <small class="error">{{erreurs.nParent}}</small>
+                    {% endif %}
+                </label>
+
+                <label>Nombre d'enfants :
+                    <input name="nEnfant"  type="text"  size="18" value="{{donnees.nEnfant|default("")}}"/>
+                    {% if erreurs.nEnfant is defined %}
+                        <small class="error">{{erreurs.nEnfant}}</small>
+                    {% endif %}
+                </label>
+
+{% include "famille/enfant/add.html.twig" %}
+{% include "famille/adulte/add.html.twig" %}
+
+                <input type="submit" name="addFamille" value="Créer la famille" />
+            </fieldset>
+        </div>
+    </form>
+
+{% endblock %}

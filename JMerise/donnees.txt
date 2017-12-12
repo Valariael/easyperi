@@ -1,0 +1,187 @@
+Dictionnaire de données 
+
+Nom : idAdulte
+Type : Int
+Taille : 11,0
+Commentaire : 
+
+Nom : nom
+Type : Varchar
+Taille : 50,0
+Commentaire : 
+
+Nom : prenom
+Type : Varchar
+Taille : 50,0
+Commentaire : 
+
+Nom : idVille
+Type : Int
+Taille : 11,0
+Commentaire : 
+
+Nom : username
+Type : Varchar
+Taille : 45,0
+Commentaire : 
+
+Nom : password
+Type : Varchar
+Taille : 45,0
+Commentaire : 
+
+Nom : adresseMail
+Type : Varchar
+Taille : 50,0
+Commentaire : 
+
+Nom : rang
+Type : Int
+Taille : 11,0
+Commentaire : 
+
+Nom : telephone
+Type : Int
+Taille : 11,0
+Commentaire : 
+
+Nom : adresse
+Type : Varchar
+Taille : 45,0
+Commentaire : 
+
+Nom : nomVille
+Type : Varchar
+Taille : 45,0
+Commentaire : 
+
+Nom : codePostal
+Type : Int
+Taille : 5,0
+Commentaire : 
+
+Nom : idClasse
+Type : Int
+Taille : 11,0
+Commentaire : 
+
+Nom : nomClasse
+Type : Varchar
+Taille : 45,0
+Commentaire : 
+
+Nom : professeur
+Type : Varchar
+Taille : 45,0
+Commentaire : 
+
+Nom : profRespClasse
+Type : TinyINT
+Taille : 1,0
+Commentaire : 
+
+Nom : idNiveau
+Type : Int
+Taille : 11,0
+Commentaire : 
+
+Nom : nomNiveau
+Type : Varchar
+Taille : 45,0
+Commentaire : 
+
+Nom : idActivite
+Type : Int
+Taille : 11,0
+Commentaire : 
+
+Nom : nomActivite
+Type : Varchar
+Taille : 200,0
+Commentaire : 
+
+Nom : descriptionActivite
+Type : Text
+Taille : 0,0
+Commentaire : 
+
+Nom : idAgenda
+Type : Int
+Taille : 11,0
+Commentaire : 
+
+Nom : dateActivite
+Type : Datetime
+Taille : 0,0
+Commentaire : 
+
+Nom : jour
+Type : Int
+Taille : 11,0
+Commentaire : 
+
+Nom : idVacances
+Type : Int
+Taille : 11,0
+Commentaire : 
+
+Nom : idVacance
+Type : Int
+Taille : 11,0
+Commentaire : 
+
+Nom : dateDebutVac
+Type : Datetime
+Taille : 0,0
+Commentaire : 
+
+Nom : dateFinVac
+Type : Datetime
+Taille : 0,0
+Commentaire : 
+
+Nom : idHoraire
+Type : Int
+Taille : 11,0
+Commentaire : 
+
+Nom : heureDebut
+Type : Datetime
+Taille : 0,0
+Commentaire : 
+
+Nom : heureFin
+Type : Datetime
+Taille : 0,0
+Commentaire : 
+
+Nom : idEnfant
+Type : Int
+Taille : 11,0
+Commentaire : 
+
+Nom : nomEnfant
+Type : Varchar
+Taille : 50,0
+Commentaire : 
+
+Nom : prenomEnfant
+Type : Varchar
+Taille : 50,0
+Commentaire : 
+
+Nom : dateDeNaissance
+Type : Date
+Taille : 0,0
+Commentaire : 
+
+Nom : idTarif
+Type : Int
+Taille : 11,0
+Commentaire : 
+
+Nom : prix
+Type : Int
+Taille : 11,0
+Commentaire : 
+

@@ -1,60 +1,30 @@
 <nav class="top-bar" data-topbar role="navigation">
-    <ul class="title-area">
-        <li class="name">
-            <h1 class="shake"> <a href="{% if app.session.get('roles') == ('ROLE_ADMIN') %}
-            {{ path("enfant.show") }}
-        {% endif %}
-        {% if app.session.get('roles') == ('ROLE_USER')  %}
-            {{ path("enfant.showEnfants")  }}
-        {% endif %}
-        ">EasyPéri</a></h1>
-        </li>
-        <li class="toggle-topbar menu-icon">
-            <a href="#"><span>Menu</span></a>
-        </li>
-    </ul>
-    section class="top-bar-section">
-    <ul class="left">
-        <li class="divider"></li>
-        {% if app.session.get('roles') == ('ROLE_ADMIN') %}
-            <li class="has-dropdown">
-                <a href="#">Enfants</a>
-                <ul class="dropdown">
-                    <li><a href="{{ path("enfant.show")  }}">Liste des enfants</a></li>
-                </ul>
-            </li>
-            <li class="has-dropdown">
-                <a href="#">Parents</a>
-                <ul class="dropdown">
-                    <li><a href="{{ path("adulte.show")  }}">Liste des parents</a></li>
-                </ul>
-            </li>
-            <li><a href="{{ path("activite.show")  }}">Activites</a></li>
-        {% elseif app.session.get('roles') == ('ROLE_USER') %}
-            <li class="has-dropdown">
-                <a href="#">Enfants</a>
-                <ul class="dropdown">
-                    <li><a href="{{ path("enfant.showEnfants")  }}">Vos enfants</a></li>
-                    <li><a href="{{ path('enfant.add', {idParent:app.session.get('username')}) }}">Inscrire un enfant</a></li>
-                </ul>
-            </li>
-            <li class="has-dropdown">
-                <a href="#">Parents</a>
-                <ul class="dropdown">
-                    <li><a href="#">Vos informations</a></li>
-                </ul>
-            </li>
-            <li><a href="#">Activités</a></li>
-            <li><a href="#">Factures</a></li>
-        {% endif %}
-    </ul>
-    <ul class="right">
-        <li><a href="#">Aide</a></li>
-        {% if app.session.get('logged') is defined and app.session.get('logged') == 1 %}
-            <li><a><img id="user-icon" class="shake" src="{{ asset("assets/img/user_icon.gif") }}"/><b>{{ app.session.get('username') }}</b></a></li>
-            <li><a href="{{ path('adulte.logout')  }}"><div class="shake">Se déconnecter</div></a></li>
+    <ul class="title-area"> 
+      <li class="name"> 
+        <h1> <a href="{{ path("adulte.show") }}">EasyPéri<span style="color:#9dff82;"></span></a></h1>
+      </li> 
+      <li class="toggle-topbar menu-icon">
+        <a href="#"><span>Menu</span></a>
+      </li> 
+    </ul> 
+    <section class="top-bar-section"> 
+      <ul class="left">
+          {% if app.session.get('role') == ('ROLE_ADMIN') or app.session.get('role') == ('ROLE_PARENT')  %}
+            <li class="divider"></li>
+            <li class="active"><a href="{{ path("enfant.show")  }}">Enfants</a></li>
+            <li><a href="">Mon compte (<span style="color:whitesmoke">{{ app.session.get('username') }}</span>)</a></li>
+          {% endif %}
+          {% if app.session.get('role') == ('ROLE_ADMIN') %}
+              <li><a href="{{ path("adulte.show")  }}">Adultes</a></li>
+              <li><a href="{{ path("activite.show")  }}">Activites</a></li>
+          {% endif %}
+      </ul>
+      <ul class="right">
+        {% if app.session.get('username') is defined and app.session.get('logged') == 1 %}
+          <li><a href="{{ path('adulte.logout')  }}">Se déconnecter</a></li>
         {% else %}
-            <li><a href="{{ path('adulte.login')  }}"><div class="shake">Se connecter</div></a></li>
+          <li><a href="{{ path('adulte.login')  }}">Se connecter</a></li>
         {% endif %}
-    </ul>
+      </ul>
+    </section> 
 </nav>

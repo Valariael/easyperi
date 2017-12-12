@@ -1,25 +1,32 @@
 {% extends "layout.html.twig" %}
 {% block contenu %}
-    <fieldset id="login-form">
-        <legend>Portail</legend>
-        <div>
-            <form method="post" action="{{ path('adulte.validFormlogin') }}">
+    {% if inscription_confirm is defined %}
+        Votre compte a bien été créé !
+    {% endif %}
+    <form method="post" action="{{ path('adulte.validFormlogin') }}">
+
+        <div class="row">
+
+            <fieldset>
+                <legend>Se connecter :</legend>
                 <label>Nom d'utilisateur :
-                    <input name="login"  type="text"  size="18" value="" placeholder="Votre nom d'utilisateur"/>
+                    <input name="username"  type="text"  size="18" value="" />
                 </label>
+
                 <label>Mot de passe :
-                    <input name="password"  type="password"  size="18" value="" placeholder="Votre mot de passe"/>
+                    <input name="password"  type="password"  size="18" value="" />
                 </label>
                 {% if app.session.get('erreur') is not empty %}
                     <small class="error">{{ app.session.get('erreur') }}</small>
                 {% endif %}
-                <button class="button primary" id="seconnecterbutton" type="submit" name="seConnecter"><span class="button-arrow-right">Se connecter</span></button>
-            </form>
-            <form action="{{ path('adulte.add')}}">
-                <button id="sinscrirebutton" class="button primary" name="sInscrire"><span class="button-arrow-left">S'inscrire</span></button>
-            </form>
-        </div>
 
-    </fieldset>
+                <input type="submit" name="seConnecter" value="Se connecter" />
+                <a href="{{ path('adulte.add')}}"> S'inscrire </a>
+	</fieldset>
+</div>
+</form>
+    <br>
+    <center><b>admin - admin<br>
+        parent - parent</b></center>
 
 {% endblock %}

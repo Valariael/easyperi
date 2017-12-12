@@ -42,13 +42,9 @@ class EnfantModel
             ->andWhere('e.idClasse = c.idClasse')
             ->andWhere('e.idNiveau = n.idNiveau')
             ->setParameter(':id',$id);
-
         return $res = $queryBuilder->execute()->fetch();
-        if (!$res['id']){
-            return $res['id'];
-        }
-
     }
+
     public function addNiveauByNom(){
         $nomNiveau = $_POST['nomNiveau'];
         $quotedNomNiveau ="'" . str_replace(",", "'", $nomNiveau) . "'";
@@ -76,6 +72,7 @@ class EnfantModel
 
         return $idNiveau;
     }
+
     public function addClasseByNom(){
         //la même que adulte.addVille : prend nomClasse, retourne idClasse
         $nomClasse = $_POST["nomClasse"];
@@ -107,7 +104,8 @@ class EnfantModel
 
         return $idClasse;
     }
-    public function getEnfantIdByNomPrenom($nomEnfant,$prenomEnfant){
+
+    public function getEnfantIdByNomPrenom($nomEnfant, $prenomEnfant){
         $queryBuilder = new QueryBuilder($this->db);
         $queryBuilder
             ->select('e.idEnfant')
@@ -123,20 +121,17 @@ class EnfantModel
         return $res;
     }
 
-    public function getEnfantIdBySession($username){
-        $username=htmlentities($username);
+    public function getEnfantOfParent($idAdulte){
         $queryBuilder = new QueryBuilder($this->db);
         $queryBuilder
-            ->select('autorisemodif.idEnfant')
-            ->from('autorisemodif')
-            ->from('adulte')
-            ->Where('adulte.username = :username')
-            ->andWhere('autorisemodif.idAdulte = adulte.idAdulte')
-            ->setParameter(':username', $username);
-
-        $res = $queryBuilder->execute()->fetchAll();
-
-        return $res;
+            ->select('e.idEnfant', 'e.nomEnfant', 'e.prenomEnfant', 'e.dateDeNaissance', 'e.idClasse', 'e.idNiveau')
+            ->from('enfant', 'e')
+            ->from('autorisemodif', 'a')
+            ->Where('e.idEnfant = a.idEnfant')
+            ->Where('a.idAdulte = :idAdulte')
+            ->groupBy('idEnfant')
+            ->setParameter(':idAdulte', htmlentities($idAdulte));
+        return $queryBuilder->execute()->fetchAll();
     }
 
 

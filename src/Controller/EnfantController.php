@@ -9,18 +9,18 @@ use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
 use function Sodium\add;
 
-class EnfantController implements ControllerProviderInterface{
+class EnfantController implements ControllerProviderInterface {
+
     private $enfantModel;
-    public function validFormAdd(Application $app){
+
+    public function validFormAdd(Application $app) {
+
         if (isset($_POST['nomEnfant']) && isset($_POST['prenomEnfant']) && isset($_POST['dateDeNaissance']) && isset($_POST['nomClasse'])) {
             $donnees = $this->getData($_POST);
-
             $erreurs = $this->erreurs($donnees);
             if(! empty($erreurs))
             {
-
-                $enfants = (new EnfantModel($app))->getAllEnfants();
-                return $app["twig"]->render('famille/enfant/add.html.twig',['idParent'=>'idParent','donnees'=>$donnees,'erreurs'=>$erreurs,'enfant'=>$enfants]);
+                return $app["twig"]->render('famille/enfant/add.html.twig',['idParent'=>'idParent','donnees'=>$donnees,'erreurs'=>$erreurs]);
             }
             else
             {
@@ -53,18 +53,14 @@ class EnfantController implements ControllerProviderInterface{
     }
     public function show(Application $app)
     {
-        $agenda = (new AgendaModel($app))->getAgenda(1) ;
-        $enfants = (new EnfantModel($app))->getAllEnfants();
-        return $app["twig"]->render('famille/enfant/show.html.twig', compact('enfants', 'agenda'));
+        $enfants = (new EnfantModel($app))->getEnfantOfParent($app['session']->get('idAdulte'));
+        return $app["twig"]->render('famille/enfant/show.html.twig', compact('enfants'));
     }
 
     public function showEnfants(Application $app)
     {
-        // POUR NE VOIR QUE SES ENFANTS
-        $enfants = (new EnfantModel($app))->getEnfantBySession($app['session']->get('username'));
+        $enfants = (new EnfantModel($app))->getEnfantOfParent($app['session']->get('idAdulte'));
         return $app["twig"]->render('famille/enfant/show.html.twig', compact('enfants'));
-
-
     }
 
     public function add(Application $app) {

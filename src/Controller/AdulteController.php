@@ -29,14 +29,13 @@ class AdulteController implements ControllerProviderInterface{
 
                 $idParent = (new AdulteModel($app))->addAdulte($donnees);
 
-                return $app->redirect($app["url_generator"]->generate("enfant.show"));
+                return $app["twig"]->render('login.html.twig', ['inscription_confirm'=>true]);
             }
         }
         else {
             return $_POST;
         }
     }
-
 
     public function add(Application $app) {
         return $app["twig"]->render('famille/adulte/add.html.twig');
@@ -55,6 +54,8 @@ class AdulteController implements ControllerProviderInterface{
         $data['nom']=htmlentities($post['nom']);
         $data['prenom']=htmlentities($post['prenom']);
         $data['nomVille']=htmlentities($post['nomVille']);
+        $data['codePostal']=htmlentities($post['codePostal']);
+        $data['adresse']=htmlentities($post['adresse']);
         $data['telephone']=htmlentities($post['telephone']);
         $data['adresseMail']=htmlentities($post['adresseMail']);
         $data['codePostal']=$post['codePostal'];
@@ -99,39 +100,28 @@ class AdulteController implements ControllerProviderInterface{
         return $this->show($app);
     }
 
-
     public function connexionAdulte(Application $app)
     {
         $this->deconnexionSession($app);
         return $app["twig"]->render('login.html.twig');
     }
 
-    public function validFormConnexionAdulte(Application $app, Request $req)
-    {
+    public function validFormConnexionAdulte(Application $app, Request $req) {
 
         $login=$app->escape($req->get('username'));
         $pw=$app->escape($req->get('password'));
 
-
         $this->adulteModel = new AdulteModel($app);
-        $data=$this->adulteModel->loginCheckAdulte($login,$pw);
-
-
+        $data = $this->adulteModel->loginCheckAdulte($login,$pw);
         if($data != NULL) {
-            session_start();
-            if (htmlentities($login) == 'admin' && ($pw) == 'admin') {
-                //Codé en dur -> mauvais bail !
-
-                $app['session']->set('roles', "ROLE_ADMIN");
-                $app['session']->set('username', $login);
+                $app['session']->set('role', $data['role']);
+                $app['session']->set('username', $data['username']);
+                $app['session']->set('idAdulte', $data['idAdulte']);
                 $app['session']->set('logged', 1);
-                return $app->redirect($app["url_generator"]->generate("adulte.show"));
-            } else {
-                $app['session']->set('roles', "ROLE_USER");
-                $app['session']->set('username', $login);
-                $app['session']->set('logged', 1);
+                if ($app['session']->get('role') == 'ROLE_ADMIN') {
+                    return $app->redirect($app["url_generator"]->generate("adulte.show"));
+                }
                 return $app->redirect($app["url_generator"]->generate("enfant.show"));
-            }
         }
         $app['session']->set('erreur', 'mot de passe ou login incorrect');
         return $app["twig"]->render('login.html.twig');
@@ -139,10 +129,8 @@ class AdulteController implements ControllerProviderInterface{
 
     public function deconnexionSession(Application $app)
     {
-        session_destroy();
-        $app['session']->set('roles',null);
-        $app['session']->set('logged',0);
         $app['session']->clear();
+        $app['session']->set('logged', 0);
         $app['session']->getFlashBag()->add('msg', 'vous êtes déconnecté');
 
         return $app->redirect($app["url_generator"]->generate("adulte.show"));

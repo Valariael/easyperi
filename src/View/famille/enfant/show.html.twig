@@ -1,7 +1,8 @@
 {% extends "layout.html.twig" %}
 {% block contenu %}
+    {% if enfants is not empty %}
     <div class="row" style="margin-top: 30px;">
-        {% if   app.session.get('roles') is defined and  app.session.get('roles') == 'ROLE_USER' %}
+        {% if   app.session.get('role') is defined and  app.session.get('role') == 'ROLE_PARENT' %}
             <a href="{{ path('enfant.add', {idParent:app.session.get('username')}) }}"> Ajouter un enfant </a>
         {% endif %}
 
@@ -17,21 +18,21 @@
             </tr>
             </thead>
             <tbody>
-            {% if   app.session.get('roles') is defined and  app.session.get('roles') == 'ROLE_USER' or app.session.get('roles') == 'ROLE_ADMIN' %}
+            {% if   app.session.get('role') is defined %}
                 {% for key in enfants if enfants is not empty %}
                     <tr>
                         <td>{{ key.nomEnfant }}</td>
                         <td>{{ key.prenomEnfant }}</td>
                         <td>{{ key.dateDeNaissance|date("d-m-Y") }}</td>
-                        <td>{{ key.nomClasse }}</td>
-                        <td>{{ key.nomNiveau }}</td>
+                        <td>{{ key.idClasse }}</td>
+                        <td>{{ key.idNiveau }}</td>
 
-                    {% if app.session.get('roles') =='ROLE_USER' %}
+                    {% if app.session.get('role') =='ROLE_PARENT' %}
                     <td>
-                        <a href="{{ path('agenda.showAgenda', {id: key.idEnfant})}}"> Vous êtes un parent ? </a>
+                        <a href="{{ path('agenda.showAgenda', {id: key.idEnfant})}}"> Gérer l'agenda </a>
                     </td>
                     {% endif %}
-                    {% if   app.session.get('roles') is defined and  app.session.get('roles') == 'ROLE_ADMIN' %}
+                    {% if   app.session.get('role') is defined and  app.session.get('role') == 'ROLE_ADMIN' %}
                         <td>
 
                             <a href="{{ path('enfant.editEnfant', {id: key.idEnfant}) }}">modifier</a>
@@ -44,5 +45,12 @@
             <tbody>
         </table>
     </div>
+{% else %}
+<br>
+    <center>
+        <b>Vous n'avez pas encore inscrit d'enfant. <br>
+            <a href="{{ path('enfant.add', {idParent:app.session.get('username')}) }}"> Ajouter un enfant </a></b>
+    </center>
+{% endif %}
 {% endblock %}
 

@@ -1,7 +1,7 @@
 {% extends "layout.html.twig" %}
 {% block contenu %}
     <div class="row" style="margin-top: 30px;">
-        {% if   app.session.get('roles') is defined and  app.session.get('roles') == 'ROLE_ADMIN' %}
+        {% if   app.session.get('role') is defined and  app.session.get('role') == 'ROLE_ADMIN' %}
             <a href="{{ path('adulte.add') }}"> Ajouter un adulte </a>
         <table>
             <caption>Recapitulatifs des adultes inscrits</caption>
@@ -11,7 +11,6 @@
                 <th>Prénom</th>
                 <th>Nom d'utilisateur</th>
                 <th>Ville</th>
-                <th>Mot de passe</th>
                 <th>Adresse Mail</th>
                 <th>Rang</th>
                 <th>Téléphone</th>
@@ -23,10 +22,9 @@
                     <td>{{ adulte.nom }}</td>
                     <td>{{ adulte.prenom }}</td>
                     <td>{{ adulte.username }}</td>
-                    <td>{{ adulte.nomVille }}</td>
-                    <td>{{ adulte.password }}</td>
+                    <td>{{ adulte.ville }} ({{ adulte.code_postal }})</td>
                     <td>{{ adulte.adresseMail }}</td>
-                    <td>{{ adulte.rang }}</td>
+                    <td>{{ adulte.role }}</td>
                     <td>{{ adulte.telephone }}</td>
 
                         <td>

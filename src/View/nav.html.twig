@@ -12,7 +12,7 @@
           {% if app.session.get('role') == ('ROLE_ADMIN') or app.session.get('role') == ('ROLE_PARENT')  %}
             <li class="divider"></li>
             <li class="active"><a href="{{ path("enfant.show")  }}">Enfants</a></li>
-            <li><a href="">Mon compte (<span style="color:whitesmoke">{{ app.session.get('username') }}</span>)</a></li>
+            <li><a href="{{ path("adulte.showInfos") }}">Mon compte (<span style="color:whitesmoke">{{ app.session.get('username') }}</span>)</a></li>
           {% endif %}
           {% if app.session.get('role') == ('ROLE_ADMIN') %}
               <li><a href="{{ path("adulte.show")  }}">Adultes</a></li>

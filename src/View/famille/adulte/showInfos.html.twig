@@ -1,0 +1,47 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+    <br>
+    <fieldset style = "margin-left: 10%; margin-right: 10%">
+        <legend>Informations sur le compte :</legend>
+        <div style="position: relative">
+            <p>
+                Nom d'utilisateur :
+                <span class="content">{{ donnees.username }}</span>
+            </p>
+            <p>Mot de passe :
+                <span class="content">*****</span>
+            </p>
+            <p>Adresse mail :
+                <span class="content">{{ donnees.adresseMail }}</span>
+            </p>
+            <span  class="lien_modifier"><a href="{{ path("adulte.editInfos") }}">Modifier mes informations</a></span>
+        </div>
+    </fieldset>
+
+
+        <fieldset style = "margin-left: 10%; margin-right: 10%">
+            <legend>Informations personnelles :</legend>
+            <p>Nom : <span class="content">{{ donnees.nom }}</span></p>
+            <p>Prénom : <span class="content">{{ donnees.prenom }}</span></p>
+            <p>Téléphone : <span class="content">{{ donnees.telephone }}</span></p>
+            <p>Ville : <span class="content">{{ donnees.ville }}</span></p>
+            <p>Code postal : <span class="content">{{ donnees.code_postal }}</span></p>
+            <p>Adresse : <span class="content">{{ donnees.adresse }}</span></p>
+        </fieldset>
+
+
+
+
+
+    <style>
+        .lien_modifier {
+
+        }
+        .content {
+            position: absolute;
+            left: 40%;
+        }
+    </style>
+
+
+{% endblock %}

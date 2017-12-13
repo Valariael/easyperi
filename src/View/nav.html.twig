@@ -12,7 +12,6 @@
           {% if app.session.get('role') == ('ROLE_ADMIN') or app.session.get('role') == ('ROLE_PARENT')  %}
             <li class="divider"></li>
             <li class="active"><a href="{{ path("enfant.show")  }}">Enfants</a></li>
-            <li><a href="">Mon compte (<span style="color:whitesmoke">{{ app.session.get('username') }}</span>)</a></li>
           {% endif %}
           {% if app.session.get('role') == ('ROLE_ADMIN') %}
               <li><a href="{{ path("adulte.show")  }}">Adultes</a></li>
@@ -21,6 +20,7 @@
       </ul>
       <ul class="right">
         {% if app.session.get('username') is defined and app.session.get('logged') == 1 %}
+          <li><a><img id="user-icon" class="shake" src="{{ asset("assets/img/user_icon.gif") }}"/><b>{{ app.session.get('username') }}</b></a></li>
           <li><a href="{{ path('adulte.logout')  }}">Se déconnecter</a></li>
         {% else %}
           <li><a href="{{ path('adulte.login')  }}">Se connecter</a></li>

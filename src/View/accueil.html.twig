@@ -12,8 +12,19 @@
     <div class="text-center">
         <h2 id="decalage-top"><b>Le logiciel d'aide à la gestion de périscolaire.</b></h2>
         <h3 style="padding-top: 10px;">Actuellement en service dans la commune de Dasles.</h3>
-        <a href="{{ path('adulte.login') }}" class="button large">Connexion</a>
-        <a href="#" class="button large hollow">Informations</a>
+    </div>
+
+    <div class="duobuttons"><!--a remanier -->
+        <div id="connexionbutton" class="duobuttons">
+            <form action="{{ path('adulte.login') }}">
+                <button class="button primary duobuttons" name="connexion"><span class="button-arrow-right">Connexion</span></button>
+            </form>
+        </div>
+        <div id="informationsbutton" class="duobuttons">
+            <form action="#">
+                <button class="button primary duobuttons" name="informations"><span class="button-interrogation-right">Informations</span></button>
+            </form>
+        </div>
     </div>
 
     <hr>

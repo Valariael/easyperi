@@ -23,6 +23,13 @@
                         <small class="error">{{erreurs.prenom}}</small>
                     {% endif %}
                 </label>
+
+                <label>Mot de passe :
+                    <input name="password"  type="password"  size="18" value="{{donnees.password|default("")}}"/>
+                    {% if erreurs.password is defined %}
+                        <small class="error">{{erreurs.password}}</small>
+                    {% endif %}
+                </label>
                 {#
                                 <label>Autorité parentale :
                                     <select name="autoriteParentale">
@@ -38,8 +45,8 @@
                                 </label>
                                 #}
 
-                <label>    Adresse : </label>
-
+                <label><b>Adresse : </b></label>
+                <br>
                 <label>N° et voie :
                     <input name="adresse"  type="text"  size="18" value="{{donnees.adresse|default("")}}"/>
                     {% if erreurs.adresse is defined %}
@@ -61,8 +68,8 @@
                     {% endif %}
                 </label>
 
-                <label>    Contact : </label>
-
+                <label><b>Contact : </b></label>
+                <br>
                 <label>Adresse email :
                     <input name="adresseMail"  type="text"  size="18" value="{{donnees.adresseMail|default("")}}"/>
                     {% if erreurs.adresseMail is defined %}
@@ -77,14 +84,8 @@
                     {% endif %}
                 </label>
 
-                <label>Mot de passe :
-                    <input name="password"  type="password"  size="18" value="{{donnees.password|default("")}}"/>
-                    {% if erreurs.password is defined %}
-                        <small class="error">{{erreurs.password}}</small>
-                    {% endif %}
-                </label>
-
-                <input type="submit" name="addParents" value="creerParents" />
+                <br>
+                <button class="button primary" type="submit" name="ajoutParent"><span class="button-plus-right">Ajouter</span></button>
             </fieldset>
         </div>
     </form>

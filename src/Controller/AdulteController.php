@@ -137,7 +137,7 @@ class AdulteController implements ControllerProviderInterface{
         $app['session']->set('logged', 0);
         $app['session']->getFlashBag()->add('msg', 'vous êtes déconnecté');
 
-        return $app->redirect($app["url_generator"]->generate("adulte.show"));
+        return $app->redirect($app["url_generator"]->generate("adulte.index"));
     }
 
     public function connect(Application $app)

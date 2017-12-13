@@ -126,7 +126,7 @@ class EnfantModel
         $queryBuilder
             ->select('e.idEnfant', 'e.nomEnfant', 'e.prenomEnfant', 'e.dateDeNaissance', 'e.idClasse', 'e.idNiveau')
             ->from('enfant', 'e')
-            ->from('autorisemodif', 'a')
+            ->inerJoin('e', 'autorisemodif', 'a', '')
             ->Where('e.idEnfant = a.idEnfant')
             ->Where('a.idAdulte = :idAdulte')
             ->groupBy('idEnfant')

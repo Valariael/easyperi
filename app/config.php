@@ -25,6 +25,8 @@ TODO,Dans agendaModel créer addInscription($idEnfant,$idAgenda,dateActivite)
 TODO,appeler (new $this->AddInscription())dans AgendaController à chaque clic ,
 
 TODO, créer et appeler validAddInscription pour valider les inscriptions cochées
+
+FONCTION D'ENREGISTREMENT ET D'AFFICHAGE DU MENU DE LA SEMAINE ? DU MOIS ?
 */
 
 

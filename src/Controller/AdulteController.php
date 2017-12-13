@@ -41,6 +41,10 @@ class AdulteController implements ControllerProviderInterface{
         return $app["twig"]->render('famille/adulte/add.html.twig');
     }
 
+    public function home(Application $app){
+        return $app["twig"]->render('famille/accueil.html.twig');
+    }
+
     public function addResp(Application $app, $id){
         $idParent = (new AdulteModel($app))->getAdulteIdBySession($app['session']->get('username'));
         (new AdulteModel($app))->addAdulteResp($id,$idParent);
@@ -76,7 +80,7 @@ class AdulteController implements ControllerProviderInterface{
     }
 
     public function index(Application $app) {
-        return $this->connexionAdulte($app);
+        return $app["twig"]->render('accueil.html.twig');
     }
 
     public function show(Application $app) {

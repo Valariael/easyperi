@@ -18,7 +18,7 @@ class AdulteController implements ControllerProviderInterface{
             && isset($_POST['adresseMail']) && isset($_POST['password'])) {
 
             $donnees = $this->getData($_POST);
-            $erreurs = $this->erreurs($donnees);
+            $erreurs = $this->erreurs($app, $donnees);
             if(! empty($erreurs))
             {
                 $parents = (new AdulteModel($app))->getAllAdultes();
@@ -29,7 +29,7 @@ class AdulteController implements ControllerProviderInterface{
 
                 $idParent = (new AdulteModel($app))->addAdulte($donnees);
 
-                return $app["twig"]->render('login.html.twig', ['inscription_confirm'=>true]);
+                return $app["twig"]->render('login.html.twig', ['inscription_confirm'=>true, 'login'=>$donnees['nom'].".".$donnees['prenom']]);
             }
         }
         else {
@@ -62,9 +62,11 @@ class AdulteController implements ControllerProviderInterface{
         return $data;
     }
 
-    private function erreurs($donnees){
+    private function erreurs($app, $donnees){
+        $this->adulteModel = new AdulteModel($app);
         $erreurs = [];
         if ((! preg_match("/^[A-Za-z ]{2,}/",$donnees['nom']))) $erreurs['nom']='nom composé de 2 lettres minimum';
+        if (!$this->adulteModel->isUserNameAvailable($donnees['nom'].".".$donnees['prenom'])) $erreurs['nom'] = 'Il semblerait qu\'un compte avec ce nom et prénom soit déjà existant' ;
         if ((! preg_match("/^[A-Za-z ]{2,}/",$donnees['prenom']))) $erreurs['prenom']='prenom composé de 2 lettres minimum';
         if ((! preg_match("/^[A-Za-z ]{2,}/",$donnees['ville']))) $erreurs['ville']='ville composé de 2 lettres minimum';
         if ((! preg_match("/^[0-9]{5}/",$donnees['code_postal']))) $erreurs['code_postal']='le code postal doit être composé de 5 caractères numériques';
@@ -124,8 +126,8 @@ class AdulteController implements ControllerProviderInterface{
                 }
                 return $app->redirect($app["url_generator"]->generate("enfant.show"));
         }
-        $app['session']->set('erreur', 'mot de passe ou login incorrect');
-        return $app["twig"]->render('login.html.twig');
+        $app['session']->set('erreur', 'Mot de passe ou login incorrect');
+        return $app["twig"]->render('login.html.twig', ['login'=>$login]);
     }
 
     public function deconnexionSession(Application $app)
@@ -154,11 +156,12 @@ class AdulteController implements ControllerProviderInterface{
         return $app["twig"]->render('famille/adulte/editInfos.html.twig',['donnees'=>$donnees]);
     }
 
-    public function testeDonneesModifieesAdulte($app, $donnees, $old_username) {
+    public function testeDonneesModifieesAdulte($app, $donnees, $current_username) {
         $this->adulteModel = new AdulteModel($app);
         $erreurs = [];
-        if ((! preg_match("/[A-Za-z0-9]{5,}/",$donnees['username']))) $erreurs['username']= 'Nom d\'utilisateur composé de 5 caractères minimum';
-        if (! $donnees['username'] == $old_username) {
+        if ((! preg_match("/[A-Za-z0-9.]{5,}/",$donnees['username']))) $erreurs['username']= 'Nom d\'utilisateur composé de 5 caractères minimum';
+
+        if ($donnees['username'] != $current_username) {
             if (!$this->adulteModel->isUserNameAvailable($donnees['username'])) $erreurs['username'] = 'Nom d\'utilisateur déjà pris';
         }
         if (!filter_var($donnees['adresseMail'], FILTER_VALIDATE_EMAIL)) { $erreurs['adresseMail']= 'Adresse mail incorrecte'; }
@@ -174,7 +177,7 @@ class AdulteController implements ControllerProviderInterface{
 
     public function validFormEditInfos(Application $app) {
         $this->adulteModel = new AdulteModel($app);
-        $erreurs = [];
+        unset($erreurs);
         $idAdulte = $app['session']->get('idAdulte');
         $username = $app['session']->get('username');
         $donnees = [

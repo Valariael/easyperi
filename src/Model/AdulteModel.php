@@ -112,6 +112,7 @@ class AdulteModel
         $queryBuilder = new QueryBuilder($this->db);
         $queryBuilder
             ->update('adulte')
+            ->set('username', ':username')
             ->set('nom', ':nom')
             ->set('prenom', ':prenom')
             ->set('adresse', ':adresse')
@@ -121,6 +122,7 @@ class AdulteModel
             ->set('adresseMail', ':adresseMail')
             ->where('idAdulte = :id')
             ->setParameter(':id', intval($id))
+            ->setParameter(':username', $donnees['username'])
             ->setParameter(':nom', $donnees['nom'])
             ->setParameter(':prenom', $donnees['prenom'])
             ->setParameter(':ville', $donnees['ville'])

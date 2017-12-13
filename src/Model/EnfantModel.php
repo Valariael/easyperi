@@ -126,8 +126,7 @@ class EnfantModel
         $queryBuilder
             ->select('e.idEnfant', 'e.nomEnfant', 'e.prenomEnfant', 'e.dateDeNaissance', 'e.idClasse', 'e.idNiveau')
             ->from('enfant', 'e')
-            ->inerJoin('e', 'autorisemodif', 'a', '')
-            ->Where('e.idEnfant = a.idEnfant')
+            ->innerJoin('e', 'autorisemodif', 'a', 'a.idEnfant = e.idEnfant')
             ->Where('a.idAdulte = :idAdulte')
             ->groupBy('idEnfant')
             ->setParameter(':idAdulte', htmlentities($idAdulte));

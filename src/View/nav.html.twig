@@ -9,6 +9,7 @@
     </ul> 
     <section class="top-bar-section"> 
       <ul class="left">
+<<<<<<< HEAD
           <li class="divider"></li>
           {% if app.session.get('roles') == ('ROLE_ADMIN') %}
               <li class="has-dropdown">
@@ -23,6 +24,15 @@
                       <li><a href="{{ path("adulte.show")  }}">Liste des parents</a></li>
                   </ul>
               </li>
+=======
+          {% if app.session.get('role') == ('ROLE_ADMIN') or app.session.get('role') == ('ROLE_PARENT')  %}
+            <li class="divider"></li>
+            <li class="active"><a href="{{ path("enfant.show")  }}">Enfants</a></li>
+            <li><a href="{{ path("adulte.showInfos") }}">Mon compte (<span style="color:whitesmoke">{{ app.session.get('username') }}</span>)</a></li>
+          {% endif %}
+          {% if app.session.get('role') == ('ROLE_ADMIN') %}
+              <li><a href="{{ path("adulte.show")  }}">Adultes</a></li>
+>>>>>>> b717e8abda2aa2718ac4e1decaa127a0be7005fb
               <li><a href="{{ path("activite.show")  }}">Activites</a></li>
           {% elseif app.session.get('roles') == ('ROLE_USER') %}
               <li class="has-dropdown">

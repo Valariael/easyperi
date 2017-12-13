@@ -48,16 +48,16 @@
                 </label>
 
                 <label>Code postal :
-                    <input name="codePostal"  type="text"  size="18" value="{{donnees.codePostal|default("")}}"/>
-                    {% if erreurs.codePostal is defined %}
-                        <small class="error">{{erreurs.codePostal}}</small>
+                    <input name="code_postal"  type="text"  size="18" value="{{donnees.code_postal|default("")}}"/>
+                    {% if erreurs.code_postal is defined %}
+                        <small class="error">{{erreurs.code_postal}}</small>
                     {% endif %}
                 </label>
 
                 <label>Ville :
-                    <input name="nomVille"  type="text"  size="18" value="{{donnees.nomVille|default("")}}"/>
-                    {% if erreurs.nomVille is defined %}
-                        <small class="error">{{erreurs.nomVille}}</small>
+                    <input name="ville"  type="text"  size="18" value="{{donnees.ville|default("")}}"/>
+                    {% if erreurs.ville is defined %}
+                        <small class="error">{{erreurs.ville}}</small>
                     {% endif %}
                 </label>
 

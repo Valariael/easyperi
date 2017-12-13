@@ -10,11 +10,7 @@
         <div>
             <form method="post" action="{{ path('adulte.validFormlogin') }}">
                 <label>Nom d'utilisateur :
-<<<<<<< HEAD
-                    <input name="login"  type="text"  size="18" value="" placeholder="Votre nom d'utilisateur"/>
-=======
-                    <input name="username"  type="text"  size="18" value="{% if login is defined %}{{ login }}{% endif %}" />
->>>>>>> b717e8abda2aa2718ac4e1decaa127a0be7005fb
+                    <input name="username"  type="text"  size="18" value="{% if login is defined %}{{ login }}{% endif %}" placeholder="Votre nom d'utilisateur" />
                 </label>
                 <label>Mot de passe :
                     <input name="password"  type="password"  size="18" value="" placeholder="Votre mot de passe"/>

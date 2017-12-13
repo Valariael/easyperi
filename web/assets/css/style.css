@@ -128,6 +128,28 @@ button:hover, button:focus, .button:hover, .button:focus {
     display: inline-block;
     position: relative;
 }
+.button:hover .button-interrogation-right{
+    padding-right : 25px;
+    padding-left: 0;
+}
+.button:hover .button-interrogation-right:after {
+    opacity: 1;
+    right: 0;
+}
+.button-interrogation-right:after {
+    content: '?';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.4s;
+}
+.button-interrogation-right {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.4s;
+}
 
 
 .oneform {

@@ -20,8 +20,30 @@
                         <small class="error">{{erreurs.prenom}}</small>
                     {% endif %}
                 </label>
-                <label>    <b>Adresse :</b> </label><br>
 
+                <label>Mot de passe :
+                    <input name="password"  type="password"  size="18" value="{{donnees.password|default("")}}"/>
+                    {% if erreurs.password is defined %}
+                        <small class="error">{{erreurs.password}}</small>
+                    {% endif %}
+                </label>
+                {#
+                                <label>Autorité parentale :
+                                    <select name="autoriteParentale">
+                                        {% if  donnees.autoriteParentale is not defined or donnees.autoriteParentale is empty   %}
+                                            <option value="">Veuillez sélectionner une option</option>
+                                        {% endif %}
+                                        <option value="true"> Oui </option>
+                                        <option value="false"> Non </option>
+                                    </select>
+                                    {% if erreurs.autoriteParentale is defined %}
+                                        <small class="error">{{ erreurs.autoriteParentale }}</small>
+                                    {% endif %}<!--à modifier-->
+                                </label>
+                                #}
+
+                <label><b>Adresse : </b></label>
+                <br>
                 <label>N° et voie :
                     <input name="adresse"  type="text"  size="18" value="{{donnees.adresse|default("")}}"/>
                     {% if erreurs.adresse is defined %}
@@ -43,7 +65,8 @@
                     {% endif %}
                 </label>
 
-                <label>    <b>Contact :</b> </label><br>
+                <label><b>Contact : </b></label>
+                <br>
 
                 <label>Adresse email :
                     <input name="adresseMail"  type="text"  size="18" value="{{donnees.adresseMail|default("")}}"/>
@@ -72,7 +95,9 @@
                     <small class="error">{{erreurs.captcha}}</small>
                 {% endif %}
 
-                <input type="submit" name="addParents" value="creerParents" />
+                <br>
+                <button class="button primary" type="submit" name="ajoutParent"><span class="button-plus-right">Ajouter</span></button>
+
             </fieldset>
         </div>
     </form>

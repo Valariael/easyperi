@@ -1,10 +1,9 @@
 {% extends "layout.html.twig" %}
 {% block contenu %}
-    <div class="row" style="margin-top: 30px;">
+    <div class="row">
         {% if   app.session.get('role') is defined and  app.session.get('role') == 'ROLE_ADMIN' %}
-            <a href="{{ path('adulte.add') }}"> Ajouter un adulte </a>
-        <table>
-            <caption>Recapitulatifs des adultes inscrits</caption>
+            <h4 class="title-form text-center">Recapitulatifs des adultes inscrits</h4>
+            <table>
             <thead>
             <tr>
                 <th>Nom</th>
@@ -26,17 +25,17 @@
                     <td>{{ adulte.adresseMail }}</td>
                     <td>{{ adulte.role }}</td>
                     <td>{{ adulte.telephone }}</td>
-
-                        <td>
-                            {#
-                            <a href="{{ path('admin.edit', {id: adulte.idAdulte}) }}">modifier</a>
-                            #}
-                            <a href="{{ path('admin.delete', {id: adulte.idAdulte}) }}">supprimer</a>
-                        </td>
+                    <td>
+                        <a href="{{ path('admin.edit', {id: adulte.idAdulte}) }}" class="button-edit-delete"><img class="icone-edit-delete shake" src="{{ asset('assets/img/edit.png') }}" title="Modifier l'adulte"/></a>
+                        <a href="{{ path('admin.delete', {id: adulte.idAdulte}) }}" class="button-edit-delete"><img class="icone-edit-delete shake" src="{{ asset('assets/img/delete.png') }}" title="Supprimer l'adulte"/></a>
+                    </td>
                 </tr>
             {% endfor %}
             <tbody>
         </table>
+        <form action="{{ path('adulte.add')}}">
+            <button class="button primary" name="ajoutAdulte"><span class="button-plus-right">Ajouter un adulte</span></button>
+        </form>
         {% endif %}
     </div>
 {% endblock %}

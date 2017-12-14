@@ -157,8 +157,7 @@ class AdulteController implements ControllerProviderInterface{
         $app['session']->clear();
         $app['session']->set('logged', 0);
         $app['session']->getFlashBag()->add('msg', 'vous êtes déconnecté');
-
-        return $app->redirect($app["url_generator"]->generate("home"));
+        return $app->redirect($app["url_generator"]->generate("adulte.index"));
     }
 
     #______________ INFOS ____________________________
@@ -228,7 +227,6 @@ class AdulteController implements ControllerProviderInterface{
             $this->adulteModel->updateAdulte($idAdulte, $donnees);
             return $app->redirect($app["url_generator"]->generate("adulte.showInfos"));
         }
-
     }
 
     public function connect(Application $app)

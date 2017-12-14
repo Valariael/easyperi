@@ -27,7 +27,9 @@
                     <td>
                         <a href="{{ path('agenda.showAgenda', {id: key.idEnfant}) }}" class="button-edit-delete"><img class="icone-edit-delete shake" src="{{ asset('assets/img/agenda.png') }}" title="Gérer les inscriptions"/></a>
                         <a href="{{ path('enfant.editEnfant', {id: key.idEnfant}) }}" class="button-edit-delete"><img class="icone-edit-delete shake" src="{{ asset('assets/img/edit.png') }}" title="Modifier l'enfant"/></a>
-                        <a href="{{ path('admin.deleteEnfant', {id: key.idEnfant}) }}" class="button-edit-delete"><img class="icone-edit-delete shake" src="{{ asset('assets/img/delete.png') }}" title="Supprimer l'enfant"/></a>
+                        {% if app.session.get('role')=='ROLE_ADMIN' %}
+                            <a href="{{ path('admin.deleteEnfant', {id: key.idEnfant}) }}" class="button-edit-delete"><img class="icone-edit-delete shake" src="{{ asset('assets/img/delete.png') }}" title="Supprimer l'enfant"/></a>
+                        {%  endif %}
                     </td>
                     {% endif %}
                 </tr>

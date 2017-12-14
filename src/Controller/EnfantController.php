@@ -91,7 +91,7 @@ class EnfantController implements ControllerProviderInterface {
         }
         $data['nomEnfant']=htmlentities($post['nomEnfant']);
         $data['prenomEnfant']=htmlentities($post['prenomEnfant']);
-        $data['dateDeNaissance']=htmlentities($post['dateDeNaissance']);
+        $data['dateDeNaissance']=date("d-m-Y", strtotime($post['dateDeNaissance']));
         $data['nomClasse']=htmlentities($post['nomClasse']);
         $data['nomNiveau']=htmlentities($post['nomNiveau']);
 
@@ -107,6 +107,10 @@ class EnfantController implements ControllerProviderInterface {
             $erreurs['dateDeNaissance']='saisir une date valide -> jj-mm-aaaa';
         }
         return $erreurs;
+    }
+
+    public function errorDroit(Application $app) {
+        return $app["twig"]->render('errorDroit.html.twig');
     }
 
     public function connect(Application $app)

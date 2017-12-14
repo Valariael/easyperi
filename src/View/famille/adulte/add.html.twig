@@ -1,14 +1,11 @@
 {% extends "layout.html.twig" %}
 {% block contenu %}
-    {% if idEnfant is defined %}
-    <form method="post" action="{{ path("adulte.validFormAdd", {idEnfant: idEnfant})}} ">
-        {% else %}
+
+    <script src='https://www.google.com/recaptcha/api.js'></script>
             <form method="post" action="{{ path("adulte.validFormAdd")}} ">
-            {% endif %}
         <div class="row">
             <fieldset>
-                {#for parent *nParents#}
-                <legend>Ajouter un parent :</legend>
+                <legend>Inscription :</legend>
 
                 <label>Nom :
                     <input name="nom"  type="text"  size="18" value="{{ donnees.nom|default("") }}" />
@@ -55,21 +52,22 @@
                 </label>
 
                 <label>Code postal :
-                    <input name="codePostal"  type="text"  size="18" value="{{donnees.codePostal|default("")}}"/>
-                    {% if erreurs.codePostal is defined %}
-                        <small class="error">{{erreurs.codePostal}}</small>
+                    <input name="code_postal"  type="text"  size="18" value="{{donnees.code_postal|default("")}}"/>
+                    {% if erreurs.code_postal is defined %}
+                        <small class="error">{{erreurs.code_postal}}</small>
                     {% endif %}
                 </label>
 
                 <label>Ville :
-                    <input name="nomVille"  type="text"  size="18" value="{{donnees.nomVille|default("")}}"/>
-                    {% if erreurs.nomVille is defined %}
-                        <small class="error">{{erreurs.nomVille}}</small>
+                    <input name="ville"  type="text"  size="18" value="{{donnees.ville|default("")}}"/>
+                    {% if erreurs.ville is defined %}
+                        <small class="error">{{erreurs.ville}}</small>
                     {% endif %}
                 </label>
 
                 <label><b>Contact : </b></label>
                 <br>
+
                 <label>Adresse email :
                     <input name="adresseMail"  type="text"  size="18" value="{{donnees.adresseMail|default("")}}"/>
                     {% if erreurs.adresseMail is defined %}
@@ -84,8 +82,22 @@
                     {% endif %}
                 </label>
 
+                <label>Mot de passe :
+                    <input name="password"  type="password"  size="18" value="{{donnees.password|default("")}}"/>
+                    {% if erreurs.password is defined %}
+                        <small class="error">{{erreurs.password}}</small>
+                    {% endif %}
+                </label>
+
+                <!-- CAPTCHA -->
+                <center><div class="g-recaptcha" data-sitekey="6LdVOzsUAAAAAERAjnNRKrU78oQpR2abkPcn-LvO"></div></center>
+                {% if erreurs.captcha is defined %}
+                    <small class="error">{{erreurs.captcha}}</small>
+                {% endif %}
+
                 <br>
                 <button class="button primary" type="submit" name="ajoutParent"><span class="button-plus-right">Ajouter</span></button>
+
             </fieldset>
         </div>
     </form>

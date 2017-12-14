@@ -1,15 +1,18 @@
 {% extends "layout.html.twig" %}
 {% block contenu %}
     {% if inscription_confirm is defined %}
-        Votre compte a bien été créé !
+        <br>
+        <center><b>Votre compte a bien été créé !</b><br>
+        <b>Votre nom d'utilisateur est {{ login }}.</b></center>
     {% endif %}
     <fieldset id="login-form">
         <legend>Portail</legend>
         <div>
             <form method="post" action="{{ path('adulte.validFormlogin') }}">
                 <label>Nom d'utilisateur :
-                    <input name="username"  type="text"  size="18" value="" placeholder="Votre nom d'utilisateur"/>
+                    <input name="username"  type="text"  size="18" value="{% if login is defined %}{{ login }}{% endif %}" placeholder="Votre nom d'utilisateur"/>
                 </label>
+
                 <label>Mot de passe :
                     <input name="password"  type="password"  size="18" value="" placeholder="Votre mot de passe"/>
                 </label>

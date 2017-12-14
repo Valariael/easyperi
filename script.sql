@@ -47,7 +47,7 @@ CREATE TABLE niveau(
         idNiveau  int (11) Auto_increment  NOT NULL ,
         nomNiveau Varchar (45) ,
         PRIMARY KEY (idNiveau )
-)ENGINE=InnoDB, DEFAULT CHARSET=utf8;
+)ENGINE=InnoDB;
 INSERT INTO niveau VALUES(1, NULL);
 
 #------------------------------------------------------------
@@ -106,12 +106,12 @@ CREATE TABLE adulte(
         password    Varchar (45) ,
         adresseMail Varchar (50) ,
         role        Varchar (20) ,
-        telephone   Varchar (20) ,
+        telephone   Int ,
         PRIMARY KEY (idAdulte )
 )ENGINE=InnoDB;
 SET FOREIGN_KEY_CHECKS = 0;
-INSERT INTO adulte VALUES(1,'admin','admin','admin_adress','admin_town',90000,'admin','5ed92051c648232133b6ddd54a9e8951', 'admin@admin.com', 'ROLE_ADMIN', '0600000000');
-INSERT INTO adulte VALUES(2,'parent_nom','parent_prenom','parent_adress','parent_town',90000,'parent','b79ecf14eea786745e4293d0264de731', 'parent@parent.com', 'ROLE_PARENT', '0610000000');
+INSERT INTO adulte VALUES(1,'admin','admin','admin_adress','admin_town',90000,'admin','5ed92051c648232133b6ddd54a9e8951', 'admin@admin.com', 'ROLE_ADMIN', 0600000000);
+INSERT INTO adulte VALUES(2,'parent_nom','parent_prenom','parent_adress','parent_town',90000,'parent','b79ecf14eea786745e4293d0264de731', 'parent@parent.com', 'ROLE_PARENT', 0610000000);
 SET FOREIGN_KEY_CHECKS=1;
 
 

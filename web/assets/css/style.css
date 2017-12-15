@@ -89,50 +89,7 @@ button:hover, button:focus, .button:hover, .button:focus {
     position: relative;
     transition: 0.4s;
 }
-.button:hover .button-plus-right{
-    padding-right : 25px;
-    padding-left: 0;
-}
-.button:hover .button-plus-right:after {
-    opacity: 1;
-    right: 0;
-}
-.button-plus-right:after {
-    content: '+';
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-    transition: 0.4s;
-}
-.button-plus-right {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.4s;
-}
-.button:hover .button-interrogation-right{
-    padding-right : 25px;
-    padding-left: 0;
-}
-.button:hover .button-interrogation-right:after {
-    opacity: 1;
-    right: 0;
-}
-.button-interrogation-right:after {
-    content: '?';
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-    transition: 0.4s;
-}
-.button-interrogation-right {
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.4s;
-}
+
 .button:hover .button-arrow-left{
     padding-right : 0;
     padding-left: 25px;
@@ -157,16 +114,6 @@ button:hover, button:focus, .button:hover, .button:focus {
     transition: 0.4s;
     right: 0;
 }
-.div#informationsbutton {
-    display:inline-block;
-    position: relative;
-    float: right;
-}
-.div#connexionbutton {
-    display:inline-block;
-    position: relative;
-    float: left;
-}
 .button#sinscrirebutton {
     display:inline-block;
     position: relative;
@@ -181,11 +128,27 @@ button:hover, button:focus, .button:hover, .button:focus {
     display: inline-block;
     position: relative;
 }
-.duobuttons {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+.button:hover .button-interrogation-right{
+    padding-right : 25px;
+    padding-left: 0;
+}
+.button:hover .button-interrogation-right:after {
+    opacity: 1;
+    right: 0;
+}
+.button-interrogation-right:after {
+    content: '?';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.4s;
+}
+.button-interrogation-right {
+    cursor: pointer;
+    display: inline-block;
     position: relative;
+    transition: 0.4s;
 }
 
 
@@ -306,34 +269,26 @@ button:hover, button:focus, .button:hover, .button:focus {
     text-align: center;
 }
 
-/* ICONES TABLES */
-.icone-edit-delete {
+/* ICONES CATALOGUE */
+.icone-carton {
     width: 25px;
     height: 25px;
-    background-color: white;
-    -webkit-transition: all 0.4s ease-in-out;
-    -moz-transition: all 0.4s ease-in-out;
-    -ms-transition: all 0.4s ease-in-out;
-    -o-transition: all 0.4s ease-in-out;
+    padding-left: 5px;
+    padding-bottom: 3px;
 }
-.icon-edit-delete:hover {
-    width: 25px;
-    height: 25px;
-    padding: 6px 6px 6px 6px;
-    background-color: #85aebf;
-    -webkit-transition: all 0.4s ease-in-out;
-    -moz-transition: all 0.4s ease-in-out;
-    -ms-transition: all 0.4s ease-in-out;
-    -o-transition: all 0.4s ease-in-out;
+.icone-panier-edit-delete {
+    width: 30px;
+    height: 30px;
 }
-.button-edit-delete {
-    width: 25px;
-    height: 25px;
-    background-color: white;
-    -webkit-transition: all 0.4s ease-in-out;
-    -moz-transition: all 0.4s ease-in-out;
-    -ms-transition: all 0.4s ease-in-out;
-    -o-transition: all 0.4s ease-in-out;
+.button-edit {
+    float: left;
+    padding-left: -5px;
+    margin-left: 10%;
+}
+.button-delete {
+    float: right;
+    padding-right: -5px;
+    margin-right: 10%;
 }
 
 .form-edit-add {
@@ -343,10 +298,6 @@ button:hover, button:focus, .button:hover, .button:focus {
 .form-delete {
     max-width: 350px;
     margin: 20px auto;
-}
-.title-form {
-    margin-top: 25px;
-    margin-bottom: 25px;
 }
 
 footer {

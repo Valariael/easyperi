@@ -5,32 +5,26 @@
         <center><b>Votre compte a bien été créé !</b><br>
         <b>Votre nom d'utilisateur est {{ login }}.</b></center>
     {% endif %}
-    <form method="post" action="{{ path('adulte.validFormlogin') }}">
-
-        <div class="row">
-
-            <fieldset>
-                <legend>Se connecter :</legend>
+    <fieldset id="login-form">
+        <legend>Portail</legend>
+        <div>
+            <form method="post" action="{{ path('adulte.validFormlogin') }}">
                 <label>Nom d'utilisateur :
-
-                    <input name="username"  type="text"  size="18" value="{% if login is defined %}{{ login }}{% endif %}" placeholder="Votre nom d'utilisateur"/>
-
+                    <input name="username"  type="text"  size="18" value="{% if login is defined %}{{ login }}{% endif %}" placeholder="Votre nom d'utilisateur" />
                 </label>
-
                 <label>Mot de passe :
-                    <input name="password"  type="password"  size="18" value="" />
+                    <input name="password"  type="password"  size="18" value="" placeholder="Votre mot de passe"/>
                 </label>
                 {% if app.session.get('erreur') is not empty %}
                     <small class="error">{{ app.session.get('erreur') }}</small>
                 {% endif %}
+                <button class="button primary" id="seconnecterbutton" type="submit" name="seConnecter"><span class="button-arrow-right">Se connecter</span></button>
+            </form>
+            <form action="{{ path('adulte.add')}}">
+                <button id="sinscrirebutton" class="button primary" name="sInscrire"><span class="button-arrow-left">S'inscrire</span></button>
+            </form>
+        </div>
 
-                <input type="submit" name="seConnecter" value="Se connecter" />
-                <a href="{{ path('adulte.add')}}"> S'inscrire </a>
-	</fieldset>
-</div>
-</form>
-    <br>
-    <center><b>admin - admin<br>
-        parent - parent</b></center>
+    </fieldset>
 
 {% endblock %}

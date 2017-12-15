@@ -13,36 +13,13 @@ class AdulteController implements ControllerProviderInterface{
     private $adulteModel;
 
     public function validFormAdd(Application $app){
-
-
-        require_once("recaptchalib.php");
-        $captcha_result = null;
-        $url = 'https://www.google.com/recaptcha/api/siteverify';
-        $data = array(
-            'secret' => '6LdVOzsUAAAAAJOq2pMHWwdy7KMTGwxZsv1ivcSQ',
-            'response' => $_POST["g-recaptcha-response"]
-        );
-        $options = array(
-            'http' => array (
-                'method' => 'POST',
-                'content' => http_build_query($data),
-                'header' => "Content-type: application/x-www-form-urlencoded\r\n" .
-                    "Content-Length: " . strlen ( http_build_query($data)) . "\r\n"
-            )
-        );
-        $context  = stream_context_create($options);
-        $verify = file_get_contents($url, false, $context);
-        $captcha_sucess=json_decode($verify, true)['success'];
-
-
         if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['ville'])
             && isset($_POST['adresse']) && isset($_POST['code_postal']) && isset($_POST['telephone'])
             && isset($_POST['adresseMail']) && isset($_POST['password'])) {
 
             $donnees = $this->getData($_POST);
             $erreurs = $this->erreurs($app, $donnees);
-            if (!$captcha_sucess) $erreurs['captcha'] = "Veuillez cocher le captcha";
-            if((! empty($erreurs)) or (!$captcha_sucess))
+            if(! empty($erreurs))
             {
                 $parents = (new AdulteModel($app))->getAllAdultes();
                 return $app["twig"]->render('famille/adulte/add.html.twig',['donnees'=>$donnees,'erreurs'=>$erreurs,'adulte'=>$parents]);
@@ -62,6 +39,10 @@ class AdulteController implements ControllerProviderInterface{
 
     public function add(Application $app) {
         return $app["twig"]->render('famille/adulte/add.html.twig');
+    }
+
+    public function home(Application $app){
+        return $app["twig"]->render('famille/accueil.html.twig');
     }
 
     public function addResp(Application $app, $id){
@@ -100,7 +81,7 @@ class AdulteController implements ControllerProviderInterface{
     }
 
     public function index(Application $app) {
-        return $this->connexionAdulte($app);
+        return $app["twig"]->render('accueil.html.twig');
     }
 
     public function show(Application $app) {
@@ -159,7 +140,7 @@ class AdulteController implements ControllerProviderInterface{
         $app['session']->set('logged', 0);
         $app['session']->getFlashBag()->add('msg', 'vous êtes déconnecté');
 
-        return $app->redirect($app["url_generator"]->generate("adulte.index"));
+        return $app->redirect($app["url_generator"]->generate("adulte.show"));
     }
 
     #______________ INFOS ____________________________
@@ -229,6 +210,7 @@ class AdulteController implements ControllerProviderInterface{
             $this->adulteModel->updateAdulte($idAdulte, $donnees);
             return $app->redirect($app["url_generator"]->generate("adulte.showInfos"));
         }
+
     }
 
     public function connect(Application $app)

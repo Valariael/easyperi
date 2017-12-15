@@ -165,7 +165,7 @@ CREATE TABLE enfant(
         prenomEnfant    Varchar (50) ,
         dateDeNaissance Date ,
         idClasse        int(11) NOT NULL ,
-		idNiveau		int(11) NOT NULL,
+		    idNiveau		int(11) NOT NULL,
         PRIMARY KEY (idEnfant ),
 		CONSTRAINT fk_enfantClasse FOREIGN KEY (idClasse) REFERENCES classe(idClasse) ON DELETE CASCADE ON UPDATE CASCADE,
 		CONSTRAINT fk_enfantNiveau FOREIGN KEY (idNiveau) REFERENCES niveau(idNiveau) ON DELETE CASCADE ON UPDATE CASCADE

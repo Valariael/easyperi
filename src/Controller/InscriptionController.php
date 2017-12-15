@@ -20,7 +20,7 @@ class InscriptionController implements ControllerProviderInterface
     public function showInscriptions(Application $app, $id)
     {
         $donnees = (new InscriptionModel($app))->getEnfantsByIdAgenda($id);
-        return $app["twig"]->render('inscription/show.html.twig',compact('donnees'));
+        return $app["twig"]->render('inscription/show.html.twig', compact('donnees'));
     }
 
     public function connect(Application $app)

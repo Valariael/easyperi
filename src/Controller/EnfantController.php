@@ -72,7 +72,7 @@ class EnfantController implements ControllerProviderInterface {
 
     public function edit(Application $app, $id) {
         $donnees = (new EnfantModel($app))->getEnfant($id);
-        return $app["twig"]->render('famille/enfant/edit.html.twig',compact('donnees'));
+        return $app["twig"]->render('famille/enfant/update.html.twig',compact('donnees'));
     }
 
     public function delete(Application $app, $id) {
@@ -129,7 +129,7 @@ class EnfantController implements ControllerProviderInterface {
         $controllers->delete('/deleteEnfant/{id}', 'App\Controller\EnfantController::destroy')->bind('enfant.destroyEnfant');
 
         $controllers->get('/editEnfant/{id}', 'App\Controller\EnfantController::edit')->bind('enfant.editEnfant');
-        $controllers->put('/editEnfant/{id}', 'App\Controller\EnfantController::validFormEdit')->bind('enfant.validFormEdit');
+        $controllers->put('/editEnfant/{id}', 'App\Controller\EnfantController::validFormUpdate')->bind('enfant.validFormUpdate');
         return $controllers;
     }
 }

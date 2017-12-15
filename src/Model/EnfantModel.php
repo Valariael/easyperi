@@ -124,15 +124,11 @@ class EnfantModel
     public function getEnfantOfParent($idAdulte){
         $queryBuilder = new QueryBuilder($this->db);
         $queryBuilder
-            ->select('e.idEnfant', 'e.nomEnfant', 'e.prenomEnfant', 'e.dateDeNaissance', 'c.nomClasse', 'n.nomNiveau')
+            ->select('e.idEnfant', 'e.nomEnfant', 'e.prenomEnfant', 'e.dateDeNaissance', 'e.idClasse', 'e.idNiveau')
             ->from('enfant', 'e')
-            ->from('classe','c')
-            ->from('niveau','n')
             ->from('autorisemodif', 'a')
             ->Where('e.idEnfant = a.idEnfant')
-            ->andWhere('a.idAdulte = :idAdulte')
-            ->andWhere('e.idClasse = c.idClasse')
-            ->andWhere('e.idNiveau = n.idNiveau')
+            ->Where('a.idAdulte = :idAdulte')
             ->groupBy('idEnfant')
             ->setParameter(':idAdulte', htmlentities($idAdulte));
         return $queryBuilder->execute()->fetchAll();

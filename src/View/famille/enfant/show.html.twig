@@ -1,20 +1,16 @@
 {% extends "layout.html.twig" %}
 {% block contenu %}
     {% if enfants is not empty %}
-    <div class="row" style="margin-top: 30px;">
-        {% if   app.session.get('role') is defined and  app.session.get('role') == 'ROLE_PARENT' %}
-            <a href="{{ path('enfant.add', {idParent:app.session.get('username')}) }}"> Ajouter un enfant </a>
-        {% endif %}
-
+    <div class="row">
+        <h4 class="title-form text-center">Recapitulatifs des enfants inscrits</h4>
         <table>
-            <caption>Recapitulatifs des enfants inscrits</caption>
             <thead>
             <tr>
                 <th>Nom</th>
                 <th>Prénom</th>
                 <th>Date de naissance</th>
-                <th>classe</th>
-                <th>niveau</th>
+                <th>Classe</th>
+                <th>Niveau</th>
             </tr>
             </thead>
             <tbody>
@@ -24,33 +20,34 @@
                         <td>{{ key.nomEnfant }}</td>
                         <td>{{ key.prenomEnfant }}</td>
                         <td>{{ key.dateDeNaissance|date("d-m-Y") }}</td>
-                        <td>{{ key.nomClasse }}</td>
-                        <td>{{ key.nomNiveau }}</td>
+                        <td>{{ key.idClasse }}</td>
+                        <td>{{ key.idNiveau }}</td>
 
-                    {% if app.session.get('role') =='ROLE_PARENT' %}
+                    {% if app.session.get('role') is defined %}
                     <td>
-                        <a href="{{ path('agenda.showAgenda', {id: key.idEnfant})}}"> Gérer l'agenda </a>
+                        <a href="{{ path('agenda.showAgenda', {id: key.idEnfant}) }}" class="button-edit-delete"><img class="icone-edit-delete shake" src="{{ asset('assets/img/agenda.png') }}" title="Gérer les inscriptions"/></a>
+                        <a href="{{ path('enfant.editEnfant', {id: key.idEnfant}) }}" class="button-edit-delete"><img class="icone-edit-delete shake" src="{{ asset('assets/img/edit.png') }}" title="Modifier l'enfant"/></a>
+                        {% if app.session.get('role')=='ROLE_ADMIN' %}
+                            <a href="{{ path('admin.deleteEnfant', {id: key.idEnfant}) }}" class="button-edit-delete"><img class="icone-edit-delete shake" src="{{ asset('assets/img/delete.png') }}" title="Supprimer l'enfant"/></a>
+                        {%  endif %}
                     </td>
-                    {% endif %}
-                    {% if   app.session.get('role') is defined and  app.session.get('role') == 'ROLE_ADMIN' %}
-                        <td>
-
-                            <a href="{{ path('enfant.editEnfant', {id: key.idEnfant}) }}">modifier</a>
-                            <a href="{{ path('admin.deleteEnfant', {id: key.idEnfant}) }}">supprimer</a>
-                        </td>
                     {% endif %}
                 </tr>
             {% endfor %}
             {% endif %}
             <tbody>
         </table>
+        <form action="{{ path('enfant.add', {idParent:app.session.get('username')})}}">
+            <button class="button primary" name="ajoutEnfant"><span class="button-plus-right">Ajouter un enfant</span></button>
+        </form>
     </div>
 {% else %}
-<br>
-    <center>
-        <b>Vous n'avez pas encore inscrit d'enfant. <br>
-            <a href="{{ path('enfant.add', {idParent:app.session.get('username')}) }}"> Ajouter un enfant </a></b>
-    </center>
+        <div class="centerize">
+            <h4 class="title-form text-center">Vous n'avez pas encore inscrit d'enfant.</h4>
+            <form action="{{ path('enfant.add', {idParent:app.session.get('username')})}}">
+                <button class="button primary" name="ajoutEnfant"><span class="button-plus-right">Ajouter un enfant</span></button>
+            </form>
+        </div>
 {% endif %}
 {% endblock %}
 

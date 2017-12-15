@@ -1,0 +1,32 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+    {% if donnees is not empty %}
+        <div class="row" style="margin-top: 30px;">
+            <table>
+                {% for donnees in donnees if donnees is not empty %}
+                <caption>Recapitulatifs des enfants inscrits le {{ donnees.dateActivite }}</caption>
+                {% endfor %}
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Date de naissance</th>
+                    <th>classe</th>
+                    <th>niveau</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for key in donnees if donnees is not empty %}
+                        <tr>
+                            <td>{{ key.nomEnfant }}</td>
+                            <td>{{ key.prenomEnfant }}</td>
+                            <td>{{ key.dateDeNaissance|date("d-m-Y") }}</td>
+                            <td>{{ key.nomClasse }}</td>
+                            <td>{{ key.nomNiveau }}</td>
+                        </tr>
+                    {% endfor %}
+                <tbody>
+            </table>
+        </div>
+{% endif %}
+{% endblock %}

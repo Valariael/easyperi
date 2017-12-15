@@ -7,7 +7,6 @@ use App\Model\AgendaModel ;
 use DateTime;
 use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
-use function Sodium\add;
 
 class EnfantController implements ControllerProviderInterface {
 
@@ -53,10 +52,13 @@ class EnfantController implements ControllerProviderInterface {
     }
     public function show(Application $app)
     {
-        $enfants = (new EnfantModel($app))->getEnfantOfParent($app['session']->get('idAdulte'));
+        if($app['session']->get('role')=='ROLE_ADMIN')
+            $enfants = (new EnfantModel($app))->getAllEnfants();
+        else $enfants = (new EnfantModel($app))->getEnfantOfParent($app['session']->get('idAdulte'));
         return $app["twig"]->render('famille/enfant/show.html.twig', compact('enfants'));
     }
 
+    //maintenant on peut juste appeler show, qui fera la distinction entre USER et ADMIN
     public function showEnfants(Application $app)
     {
         $enfants = (new EnfantModel($app))->getEnfantOfParent($app['session']->get('idAdulte'));
@@ -64,15 +66,14 @@ class EnfantController implements ControllerProviderInterface {
     }
 
     public function add(Application $app) {
-            $username = $app['session']->get('username');
-            $idParent = (new AdulteModel($app))->getAdulteIdBySession($username);
+        $idParent = $app['session']->get('idAdulte');
 
         return $app["twig"]->render('famille/enfant/add.html.twig',compact('idParent') );
     }
 
     public function edit(Application $app, $id) {
         $donnees = (new EnfantModel($app))->getEnfant($id);
-        return $app["twig"]->render('famille/enfant/edit.html.twig',compact('donnees'));
+        return $app["twig"]->render('famille/enfant/update.html.twig',compact('donnees'));
     }
 
     public function delete(Application $app, $id) {
@@ -91,7 +92,7 @@ class EnfantController implements ControllerProviderInterface {
         }
         $data['nomEnfant']=htmlentities($post['nomEnfant']);
         $data['prenomEnfant']=htmlentities($post['prenomEnfant']);
-        $data['dateDeNaissance']=date("d-m-Y", strtotime($post['dateDeNaissance']));
+        $data['dateDeNaissance']=htmlentities($post['dateDeNaissance']);
         $data['nomClasse']=htmlentities($post['nomClasse']);
         $data['nomNiveau']=htmlentities($post['nomNiveau']);
 
@@ -109,18 +110,13 @@ class EnfantController implements ControllerProviderInterface {
         return $erreurs;
     }
 
-    public function errorDroit(Application $app) {
-        return $app["twig"]->render('errorDroit.html.twig');
-    }
-
     public function connect(Application $app)
     {
         $controllers = $app['controllers_factory'];
 
         $controllers->get('/errorEnfant', 'App\Controller\EnfantController::errorDroit')->bind('enfant.erreurs');
 
-        $controllers->get('/showEnfant', 'App\Controller\EnfantController::show')->bind('enfant.show');
-        $controllers->get('/showEnfants', 'App\Controller\EnfantController::showEnfants')->bind('enfant.showEnfants');
+        $controllers->get('/show', 'App\Controller\EnfantController::show')->bind('enfant.show');
 
         $controllers->get('/addEnfant/{idParent}', 'App\Controller\EnfantController::add')->bind('enfant.add');
         $controllers->post('/addEnfant', 'App\Controller\EnfantController::validFormAdd')->bind('enfant.validFormAdd');
@@ -129,7 +125,7 @@ class EnfantController implements ControllerProviderInterface {
         $controllers->delete('/deleteEnfant/{id}', 'App\Controller\EnfantController::destroy')->bind('enfant.destroyEnfant');
 
         $controllers->get('/editEnfant/{id}', 'App\Controller\EnfantController::edit')->bind('enfant.editEnfant');
-        $controllers->put('/editEnfant/{id}', 'App\Controller\EnfantController::validFormEdit')->bind('enfant.validFormEdit');
+        $controllers->put('/editEnfant/{id}', 'App\Controller\EnfantController::validFormUpdate')->bind('enfant.validFormUpdate');
         return $controllers;
     }
 }

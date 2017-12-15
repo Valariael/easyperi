@@ -16,12 +16,15 @@ class AgendaController implements ControllerProviderInterface{
     private $agendaModel ;
 
     public function show(Application $app){
-        $enfant = (new EnfantModel($app))->getEnfant($_GET['id']);
+
         $idMaxAgenda = intval((new AgendaModel($app))->getMaxId());
         $agenda = array() ;
         for($i = 1; $i < 8 ; $i++) {
             $agenda[$i] = (new AgendaModel($app))->getAgenda($i);
         }
+        if($app['session']->get('role')=='ROLE_ADMIN')
+            return $app["twig"]->render('agenda/showAgenda2.html.twig',compact('agenda'));
+        $enfant = (new EnfantModel($app))->getEnfant($_GET['id']);
         return $app["twig"]->render('agenda/showAgenda2.html.twig',['agenda'=>$agenda, 'idEnfant'=>$enfant['idEnfant']]);
 
     }

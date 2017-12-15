@@ -13,8 +13,7 @@ class AdulteController implements ControllerProviderInterface{
     private $adulteModel;
 
     public function validFormAdd(Application $app){
-<<<<<<< HEAD
-=======
+
 
         require_once("recaptchalib.php");
         $captcha_result = null;
@@ -36,19 +35,14 @@ class AdulteController implements ControllerProviderInterface{
         $captcha_sucess=json_decode($verify, true)['success'];
 
 
->>>>>>> add_css
         if (isset($_POST['nom']) && isset($_POST['prenom']) && isset($_POST['ville'])
             && isset($_POST['adresse']) && isset($_POST['code_postal']) && isset($_POST['telephone'])
             && isset($_POST['adresseMail']) && isset($_POST['password'])) {
 
             $donnees = $this->getData($_POST);
             $erreurs = $this->erreurs($app, $donnees);
-<<<<<<< HEAD
-            if(! empty($erreurs))
-=======
             if (!$captcha_sucess) $erreurs['captcha'] = "Veuillez cocher le captcha";
             if((! empty($erreurs)) or (!$captcha_sucess))
->>>>>>> add_css
             {
                 $parents = (new AdulteModel($app))->getAllAdultes();
                 return $app["twig"]->render('famille/adulte/add.html.twig',['donnees'=>$donnees,'erreurs'=>$erreurs,'adulte'=>$parents]);
@@ -164,82 +158,8 @@ class AdulteController implements ControllerProviderInterface{
         $app['session']->clear();
         $app['session']->set('logged', 0);
         $app['session']->getFlashBag()->add('msg', 'vous êtes déconnecté');
-<<<<<<< HEAD
 
-        return $app->redirect($app["url_generator"]->generate("adulte.show"));
-    }
-
-    #______________ INFOS ____________________________
-
-    public function showInfos(Application $app) {
-        $this->adulteModel = new AdulteModel($app);
-        $idAdulte = $app['session']->get('idAdulte');
-        $donnees = $this->adulteModel->getAdulte($idAdulte);
-        $donnees['telephone'] = chunk_split($donnees['telephone'], 2, ' ');
-        return $app["twig"]->render('famille/adulte/showInfos.html.twig', ['donnees'=>$donnees]);
-    }
-
-    public function editInfos(Application $app) {
-        $idAdulte = $app['session']->get('idAdulte');
-        $this->adulteModel = new AdulteModel($app);
-        $donnees = $this->adulteModel->getAdulte($idAdulte);
-        return $app["twig"]->render('famille/adulte/editInfos.html.twig',['donnees'=>$donnees]);
-    }
-
-    public function testeDonneesModifieesAdulte($app, $donnees, $current_username) {
-        $this->adulteModel = new AdulteModel($app);
-        $erreurs = [];
-        if ((! preg_match("/[A-Za-z0-9.]{5,}/",$donnees['username']))) $erreurs['username']= 'Nom d\'utilisateur composé de 5 caractères minimum';
-
-        if ($donnees['username'] != $current_username) {
-            if (!$this->adulteModel->isUserNameAvailable($donnees['username'])) $erreurs['username'] = 'Nom d\'utilisateur déjà pris';
-        }
-        if (!filter_var($donnees['adresseMail'], FILTER_VALIDATE_EMAIL)) { $erreurs['adresseMail']= 'Adresse mail incorrecte'; }
-        if ((! preg_match("/[A-Za-z ]{2,}/",$donnees['ville']))) $erreurs['ville']= 'Ville composée de deux lettres minimum';
-        if ((! preg_match("/[A-Za-z0-9 ]{2,}/",$donnees['adresse']))) $erreurs['adresse']= 'Adresse composée de deux caractères minimum';
-        if ((! preg_match("/[A-Za-z ]{2,}/",$donnees['nom']))) $erreurs['nom']= 'Nom composé de deux lettres minimum';
-        if ((! preg_match("/[A-Za-z ]{2,}/",$donnees['prenom']))) $erreurs['prenom']= 'Prénom composé de lettres minimum';
-        if ((!preg_match("/^[0-9]{5}$/", $donnees['code_postal']))) $erreurs['code_postal']= 'Code postal composé de 5 chiffres';
-        if ((!preg_match("/^[0-9]{10}$/", $donnees['telephone']))) $erreurs['telephone']= 'Téléphone composé de 10 chiffres';
-
-        return $erreurs;
-    }
-
-    public function validFormEditInfos(Application $app) {
-        $this->adulteModel = new AdulteModel($app);
-        unset($erreurs);
-        $idAdulte = $app['session']->get('idAdulte');
-        $username = $app['session']->get('username');
-        $donnees = [
-            'username' => htmlspecialchars($_POST['username']),
-            'adresseMail' => htmlspecialchars($_POST['adresseMail']),
-            'nom' => htmlspecialchars($_POST['nom']),
-            'prenom' => htmlspecialchars($_POST['prenom']),
-            'code_postal' => htmlspecialchars($_POST['code_postal']),
-            'ville' => htmlspecialchars($_POST['ville']),
-            'adresse' => htmlspecialchars($_POST['adresse']),
-            'password' => htmlspecialchars($_POST['password']),
-            'telephone' => htmlspecialchars($_POST['telephone'])
-        ];
-
-        $erreurs = $this->testeDonneesModifieesAdulte($app, $donnees, $username);
-        $password_wrong = !$this->adulteModel->loginCheckAdulte($username, $donnees['password']);
-
-        if (!empty($erreurs) or $password_wrong) {
-            if ($password_wrong) $erreurs['password'] = 'Mot de passe incorrect';
-            return $app["twig"]->render('famille/adulte/editInfos.html.twig',['donnees'=>$donnees,'erreurs'=>$erreurs]);
-        }
-        else
-        {
-            // changer app session username !
-            $app['session']->set('username', $donnees['username']);
-            $this->adulteModel->updateAdulte($idAdulte, $donnees);
-            return $app->redirect($app["url_generator"]->generate("adulte.showInfos"));
-        }
-
-=======
         return $app->redirect($app["url_generator"]->generate("adulte.index"));
->>>>>>> add_css
     }
 
     #______________ INFOS ____________________________

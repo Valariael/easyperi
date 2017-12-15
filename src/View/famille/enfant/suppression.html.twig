@@ -1,17 +1,15 @@
 {% extends "layout.html.twig" %}
 {% block contenu %}
-    <fieldset id="login-form">
-        <legend>Suppression :</legend>
-        <div>
-            <form method="post" action="{{ path('admin.destroyEnfant', {id: enfant['idEnfant']}) }}">
-                <input type="hidden" id="_method" name="_method" value="DELETE"/>
-                <button class="button primary" id="seconnecterbutton" type="submit" name="supprimer"><span class="button-arrow-right">Supprimer</span></button>
-            </form>
-            <form action="{{ path('enfant.show')}}">
-                <button id="sinscrirebutton" class="button primary" name="annuler"><span class="button-arrow-left">Annuler</span></button>
-            </form>
+    <form method="post" action="{{ path("admin.destroyEnfant", {id: enfant['idEnfant']}) }} ">
+        <input type="hidden" id="_method" name="_method" value="DELETE"/>
+        <div class="row">
+            <fieldset>
+                <legend>Suppression</legend>
+                <h3>Etes vous sur de vouloir supprimer cet enfant ? {{ enfant.nomEnfant }}{{ enfant.prenomEnfant }}</h3>
+                <input type="submit" name="supprimer" value="Supprimer" class="button"/>
+                <a href="{{ path('enfant.show') }}" class="button">Annuler</a>
+            </fieldset>
         </div>
-
-    </fieldset>
+    </form>
 
 {% endblock %}

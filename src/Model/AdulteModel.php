@@ -41,9 +41,8 @@ class AdulteModel
             'adresse' => $res['adresse'],
             'code_postal' => $res['code_postal'],
             'ville' => $res['ville'],
-            'username' => $res['username'],
-            'password' => $res['password'],
             'telephone' => $res['telephone'],
+            'username' => $res['username'],
             'adresseMail' => $res['adresseMail'],
             'role' => $res['role']
         ];
@@ -105,7 +104,7 @@ class AdulteModel
             ->setParameter(':role', 'ROLE_PARENT')
         ;
         $queryBuilder->execute();
-        return $this->getAdulteIdByNomPrenom($donnees['nom'],$donnees['prenom']);
+        return $this->getAdulteIdByNomPrenom($donnees['nom'], $donnees['prenom']);
 
     }
 
@@ -113,23 +112,23 @@ class AdulteModel
         $queryBuilder = new QueryBuilder($this->db);
         $queryBuilder
             ->update('adulte')
+            ->set('username', ':username')
             ->set('nom', ':nom')
             ->set('prenom', ':prenom')
             ->set('adresse', ':adresse')
             ->set('ville', ':ville')
             ->set('code_postal', ':code_postal')
             ->set('telephone', ':telephone')
-            ->set('role', ':role')
             ->set('adresseMail', ':adresseMail')
             ->where('idAdulte = :id')
-            ->setParameter(':idAdulte', intval($id))
+            ->setParameter(':id', intval($id))
+            ->setParameter(':username', $donnees['username'])
             ->setParameter(':nom', $donnees['nom'])
             ->setParameter(':prenom', $donnees['prenom'])
             ->setParameter(':ville', $donnees['ville'])
             ->setParameter(':code_postal', $donnees['code_postal'])
             ->setParameter(':adresse', $donnees['adresse'])
             ->setParameter(':telephone', $donnees['telephone'])
-            ->setParameter(':role', $donnees['role'])
             ->setParameter(':adresseMail', $donnees['adresseMail']);
         return $queryBuilder->execute();
     }
@@ -151,6 +150,16 @@ class AdulteModel
             ->setParameter(0, intval($idEnfant))
             ->setParameter(1, intval($idParent));
         return $queryBuilder->execute();
+    }
+
+    public function isUserNameAvailable($username) {
+        $queryBuilder = new QueryBuilder($this->db);
+        $queryBuilder
+            ->select('*')
+            ->from('adulte')
+            ->where('username = :username')
+            ->setParameter('username', $username);
+        return ($queryBuilder->execute()->fetch() == NULL);
     }
 
     public function loginCheckAdulte($login, $mdp){

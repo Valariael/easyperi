@@ -1,0 +1,46 @@
+{% extends "layout.html.twig" %}
+{% block contenu %}
+
+        <!-- Boucle for qui intialise l'agenda en fonction des activites presentes dans la base de donnees   -->
+        <!-- TODO, faire la gestion d'ajout d'inscription impossible d'ajouter une inscription lorsqu'un enfant est déjà inscrit -->
+
+        <form method="post" action="{{ path( 'agenda.validAjouterInscription') }}">
+            <table>
+                <caption> Agenda </caption>
+                <thead>
+                <tr>
+                    <th> date </th>
+                    <th>activite</th>
+                    <th> jour </th>
+                    <th> heure debut activite</th>
+                    <th> heure fin activite</th>
+                    <th>inscrire</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for key in agenda if agenda is not empty %}
+                    {% for key2 in key if key is not empty %}
+                    <tr>
+                    <td><label for="chbxAddInscription">{{ key2.dateActivite }}</label> </td>
+                    <td><label for="chbxAddInscription">{{  key2.nomActivite }}</label></td>
+                    <td><label for="chbxAddInscription">{{ key2.jour }}</label> </td>
+                    <td><label for="chbxAddInscription">{{ key2.heureDebut }} h</label> </td>
+                    <td><label for="chbxAddInscription">{{ key2.heureFin }} h</label></td>
+                        {% if(app.session.get('role') == 'ROLE_PARENT') %}
+                            <input type="hidden" name="idEnfant" value={{ idEnfant }}>
+                            <td><input type="checkbox" id="chbxAddInscription" name="{{ key2.idAgenda }}" value="{{key2.idAgenda}}"></td>
+                        {% endif %}
+                        {% if(app.session.get('role') == 'ROLE_ADMIN') %}
+                            <td><a href="{{ path('inscription.showInscriptions', {id: key2.idAgenda})}}"> Voir les enfants inscrits </a></td>
+                        {% endif %}
+                    </tr>
+                        {% endfor %}
+                {% endfor %}
+
+                </tbody>
+            </table>
+            <input type="submit" value="Valider l'inscription">
+        </form>
+
+
+{% endblock %}

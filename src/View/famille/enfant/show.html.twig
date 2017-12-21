@@ -20,8 +20,8 @@
                         <td>{{ key.nomEnfant }}</td>
                         <td>{{ key.prenomEnfant }}</td>
                         <td>{{ key.dateDeNaissance|date("d-m-Y") }}</td>
-                        <td>{{ key.idClasse }}</td>
-                        <td>{{ key.idNiveau }}</td>
+                        <td>{{ key.nomClasse }}</td>
+                        <td>{{ key.nomNiveau }}</td>
 
                     {% if app.session.get('role') is defined %}
                     <td>
